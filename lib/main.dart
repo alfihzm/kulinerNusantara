@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'resepMasakan.dart';
+import 'resepMinuman.dart';
+import 'programmerResep.dart';
 
 void main() {
   runApp(const ResepNusantara());
@@ -150,6 +152,11 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(height: 4), // Jarak antara subtitle dan tombol
                           TextButton(
                             onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ResepMinumanPage(),
+                                ),
+                              );
                             },
                             child: Text('Lihat Selengkapnya'),
                           ),
@@ -176,6 +183,11 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(height: 4), // Jarak antara subtitle dan tombol
                           TextButton(
                             onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ProgrammerPage(),
+                                ),
+                              );
                             },
                             child: Text('Lihat Selengkapnya'),
                           ),
