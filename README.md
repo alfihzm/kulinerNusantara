@@ -2,6 +2,6 @@
 
 Project Flutter pertama kali.
 
-## Getting Started
+## Mobile Programming
 
 Nama Dosen: Bapak Aji Sudibyo, S.Kom., M.Kom.
