@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'resepMasakan.dart';
 import 'resepMinuman.dart';
-import 'programmerResep.dart';
+import 'Kelompok3.dart';
+import 'loginPage.dart';
 
 void main() {
-  runApp(const ResepNusantara());
+  runApp(const kulinerNusantara());
 }
 
-class ResepNusantara extends StatelessWidget {
-  const ResepNusantara({Key? key}) : super(key: key);
+class kulinerNusantara extends StatelessWidget {
+  const kulinerNusantara({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -117,122 +118,250 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Card(
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.my_library_books_outlined,
-                        size: 35,
-                      ),
-                      title: const Text(
-                        'Kumpulan Informasi Makanan Nusantara',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 118, 129, 203),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color.fromARGB(255, 100, 116, 223),
+                          width: 3,
                         ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Memberikan informasi masakan terbaik.',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'Quicksand',
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.my_library_books_outlined,
+                          size: 35,
+                          color: Color.fromARGB(255, 255, 255, 255),
+                        ),
+                        title: const Text(
+                          'Kumpulan Informasi Makanan Nusantara',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Memberikan informasi masakan terbaik, enak, lezat dan bergizi.',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'Quicksand',
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 4),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResepMasakanPage(),
+                            SizedBox(height: 8),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ResepMasakanPage(),
+                                  ),
+                                );
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color.fromARGB(255, 255, 255, 255)),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        const Color.fromARGB(255, 59, 59, 59)),
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                  EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 12),
                                 ),
-                              );
-                            },
-                            child: Text('Lihat Selengkapnya'),
-                          ),
-                        ],
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: BorderSide(
+                                        color:
+                                            Color.fromARGB(255, 83, 134, 175)),
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                'Lihat Selengkapnya',
+                                style: TextStyle(
+                                  fontFamily: 'Quicksand',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Card(
-                    child: ListTile(
-                      leading: Icon(Icons.emoji_food_beverage, size: 35),
-                      title: const Text(
-                        'Kumpulan Informasi Minuman Nusantara',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 118, 129, 203),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color.fromARGB(255, 100, 116, 223),
+                          width: 3,
                         ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Memberikan informasi minuman menyegarkan dan sehat.',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'Quicksand',
+                      child: ListTile(
+                        leading: Icon(Icons.emoji_food_beverage,
+                            size: 35, color: Colors.white),
+                        title: const Text(
+                          'Kumpulan Informasi Minuman Nusantara',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Memberikan informasi minuman menyegarkan dan sehat.',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'Quicksand',
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 4),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResepMinumanPage(),
+                            SizedBox(height: 4),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ResepMinumanPage(),
+                                  ),
+                                );
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        const Color.fromARGB(255, 59, 59, 59)),
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                  EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 12),
                                 ),
-                              );
-                            },
-                            child: Text('Lihat Selengkapnya'),
-                          ),
-                        ],
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: BorderSide(
+                                        color:
+                                            Color.fromARGB(255, 83, 134, 175)),
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                'Lihat Selengkapnya',
+                                style: TextStyle(
+                                  fontFamily: 'Quicksand',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Card(
-                    child: ListTile(
-                      leading: Icon(Icons.supervised_user_circle, size: 35),
-                      title: const Text(
-                        'Programmer Aplikasi Ini',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 118, 129, 203),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color.fromARGB(255, 100, 116, 223),
+                          width: 3,
                         ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Pembuat aplikasi ensiklopedia makanan & minuman Nusantara.',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'Quicksand',
+                      child: ListTile(
+                        leading: Icon(Icons.supervised_user_circle,
+                            size: 35, color: Colors.white),
+                        title: const Text(
+                          'Kelompok 3',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Daftar Kelompok 3 Mobile Programming dengan tema proyek Kuliner Nusantara.',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'Quicksand',
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 4),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProgrammerPage(),
+                            SizedBox(height: 4),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Kelompok3(),
+                                  ),
+                                );
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        const Color.fromARGB(255, 59, 59, 59)),
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                  EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 12),
                                 ),
-                              );
-                            },
-                            child: Text('Lihat Selengkapnya'),
-                          ),
-                        ],
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: BorderSide(
+                                        color:
+                                            Color.fromARGB(255, 86, 99, 187)),
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                'Lihat Selengkapnya',
+                                style: TextStyle(
+                                  fontFamily: 'Quicksand',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -240,10 +369,42 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Login'),
-                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color.fromARGB(255, 118, 129, 203)),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Color.fromARGB(255, 255, 255, 255)),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.symmetric(vertical: 12, horizontal: 25),
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(
+                                  color: Color.fromARGB(255, 86, 99, 187)),
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ],
