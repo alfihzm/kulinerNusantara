@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.3.0
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -20,7 +21,26 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
   assets:
-    - assets/images/company_background.jpg
     - assets/images/traditional_food_background.jpg
+    - assets/images/food/nasi_goreng.jpg
+    - assets/images/food/rendang.jpg
+    - assets/images/food/soto_betawi.jpg
+    - assets/images/food/sate_ayam.jpg
+    - assets/images/food/ketoprak.jpg
+    - assets/images/food/bakso.jpeg
+    - assets/images/drink/kopi_tubruk.jpg
+    - assets/images/drink/kopi_luwak.jpg
+    - assets/images/drink/wedang_jahe.jpg
+    - assets/images/drink/soda_gembira.jpg
+    - assets/images/drink/teh_talua.jpg
+    - assets/images/drink/sekoteng.jpg
+
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand-Regular.ttf
+        - asset: assets/fonts/Quicksand-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Quicksand-Medium.ttf
+          weight: 500
