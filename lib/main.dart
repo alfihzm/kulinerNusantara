@@ -397,7 +397,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'Login',
+                          'Masuk',
                           style: TextStyle(
                             fontFamily: 'Quicksand',
                             fontWeight: FontWeight.bold,
