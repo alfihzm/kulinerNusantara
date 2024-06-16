@@ -47,7 +47,7 @@ class _RegisterState extends State<RegisterPage> {
             _emailController.clear();
             _passwordController.clear();
 
-            // Navigasi ke halaman login setelah registrasi berhasil
+            // Navigasi ke Login kalau udah berhasil registrasi
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => LoginPage()),
@@ -168,7 +168,7 @@ class _RegisterState extends State<RegisterPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Password tidak boleh kosong';
-                  } else if (value.length < 6) {
+                  } else if (value.length < 5) {
                     return 'Password harus lebih dari 6 karakter';
                   }
                   return null;
