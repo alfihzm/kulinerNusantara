@@ -13,13 +13,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _namaController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _login(BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
-      String nama = _namaController.text.trim();
       String email = _emailController.text.trim();
       String password = _passwordController.text.trim();
 
@@ -27,7 +25,6 @@ class _LoginState extends State<LoginPage> {
       var response = await http.post(
         url,
         body: {
-          'nama': nama,
           'email': email,
           'password': password,
         },
@@ -37,6 +34,7 @@ class _LoginState extends State<LoginPage> {
         try {
           var data = json.decode(response.body);
           if (data['success']) {
+            String nama = data['nama']; // Ambil nama dari respons
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString('nama', nama);
             await prefs.setString('email', email);
@@ -58,7 +56,6 @@ class _LoginState extends State<LoginPage> {
             );
           }
         } catch (e) {
-          // Menampilkan respons sebagai teks untuk debugging
           print("Error decoding response: ${response.body}");
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -68,7 +65,6 @@ class _LoginState extends State<LoginPage> {
           );
         }
       } else {
-        // Menangani kasus ketika status kode tidak 200
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Server error: ${response.statusCode}'),
