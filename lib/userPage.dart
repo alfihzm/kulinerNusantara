@@ -4,6 +4,7 @@ import 'loginPage.dart';
 import 'resepMasakan.dart';
 import 'resepMinuman.dart';
 import 'Kelompok3.dart';
+import 'saranPage.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -24,9 +25,12 @@ class _UserPageState extends State<UserPage> {
 
   Future<void> _loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      fullName = prefs.getString('nama');
-    });
+    String? savedFullName = prefs.getString('nama');
+    if (savedFullName != null && savedFullName.isNotEmpty) {
+      setState(() {
+        fullName = savedFullName;
+      });
+    }
   }
 
   @override
@@ -394,7 +398,9 @@ class _UserPageState extends State<UserPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _saran();
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
                           Color.fromARGB(255, 86, 187, 111)),
@@ -456,6 +462,13 @@ class _UserPageState extends State<UserPage> {
           ),
         ),
       ],
+    );
+  }
+
+  void _saran() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SaranPage()),
     );
   }
 
