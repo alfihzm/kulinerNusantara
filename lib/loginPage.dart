@@ -34,12 +34,11 @@ class _LoginState extends State<LoginPage> {
         try {
           var data = json.decode(response.body);
           if (data['success']) {
-            String nama = data['nama']; // Ambil nama dari respons
+            String nama = data['nama'];
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString('nama', nama);
             await prefs.setString('email', email);
 
-            // Login berhasil
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -47,7 +46,6 @@ class _LoginState extends State<LoginPage> {
               ),
             );
           } else {
-            // Login gagal
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(data['message']),
