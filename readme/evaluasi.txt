@@ -1,0 +1,187 @@
+Problem selama ngoding Mobile Flutter (kulinerNusantara):
+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==
+1. 3 Jam debugging SharedPreferences user yang sedang login tidak muncul karena:
+void _saran() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SaranPage()),
+    );
+  }
+
+void _logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
+  }
+
+Nggak sadar kalau fungsi _saran masih ada await prefs.clear(); karena copy fungsi dari _logout
+Fungsi dari await prefs.clear(); adalah menghapus semua data SharedPreferences yang dibagikan.
+
+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==+==
+2. 6 Jam debugging API, data yang terkirim tidak mau masuk ke table saran karena:
+Menyertakan / Include connection.php, yang berisi:
+
+$host = "localhost";
+$username = "root";
+$password = "";
+$db = "kulinernusantara";
+
+$conn = new mysqli($host, $username, $password, $db);
+
+if ($conn->connect_error) {
+    die("Connection Failed: " . $conn->connect_error);
+}
+
+Alasan error, menurut ChatGPT:
+Kesalahan terjadi karena ada dua koneksi ke database yang dibuat dalam skrip PHP.
+
+1.Koneksi Ganda ke Database:
+
+- Pada skrip pertama yang Anda berikan, ada koneksi ke database di dalam connection.php, yang di-include di awal skrip.
+- Setelah meng-include connection.php, Anda membuat koneksi baru dengan $conn = new mysqli($host, $username, $password, $dbname);.
+- Ini menciptakan dua koneksi ke database, yang tidak hanya tidak perlu tetapi juga bisa menyebabkan konflik.
+
+2.Variabel Tak Terdefinisi:
+
+- Dalam connection.php, Anda mendefinisikan variabel $host, $username, $password, dan $db.
+- Ketika Anda membuat koneksi baru dengan new mysqli($host, $username, $password, $dbname);, Anda menggunakan $dbname, yang mungkin tidak didefinisikan dalam connection.php.
+
+=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?
+Kode sebelumnya:
+=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?=?
+<?php
+include('connection.php');
+
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(E_ALL);
+
+ini_set('log_errors', 1);
+ini_set('error_log', '/path_to_your_log_file/php_errors.log');
+
+header('Content-Type: application/json');
+
+$conn = new mysqli($host, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    $response = array(
+        "status" => false,
+        "message" => "Koneksi ke database gagal: " . $conn->connect_error
+    );
+    echo json_encode($response);
+    exit();
+}
+
+if (isset($_POST['nama'], $_POST['email'], $_POST['saran'])) {
+    $nama = htmlspecialchars($_POST['nama']);
+    $email = htmlspecialchars($_POST['email']);
+    $saran = htmlspecialchars($_POST['saran']);
+
+    $stmt = $conn->prepare("INSERT INTO saran (nama, email, saran) VALUES (?, ?, ?)");
+    if (!$stmt) {
+        $response = array(
+            "status" => false,
+            "message" => "Gagal mempersiapkan statement: " . $conn->error
+        );
+        echo json_encode($response);
+        exit();
+    }
+
+    $stmt->bind_param("sss", $nama, $email, $saran);
+
+    if ($stmt->execute()) {
+        $response = array(
+            "status" => true,
+            "message" => "Saran berhasil disimpan."
+        );
+    } else {
+        $response = array(
+            "status" => false,
+            "message" => "Gagal menyimpan saran. Silakan coba lagi."
+        );
+    }
+
+    $stmt->close();
+    $conn->close();
+} else {
+    $response = array(
+        "status" => false,
+        "message" => "Data tidak lengkap. Pastikan nama, email, dan saran diisi."
+    );
+}
+
+echo json_encode($response);
+
+=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!
+Setelah difix:
+=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!
+<?php
+$host = "localhost";
+$username = "root";
+$password = "";
+$db = "kulinernusantara";
+
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(E_ALL);
+
+ini_set('log_errors', 1);
+ini_set('error_log', '/path_to_your_log_file/php_errors.log');
+
+header('Content-Type: application/json');
+
+$conn = new mysqli($host, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    $response = array(
+        "status" => false,
+        "message" => "Koneksi ke database gagal: " . $conn->connect_error
+    );
+    echo json_encode($response);
+    exit();
+}
+
+if (isset($_POST['nama'], $_POST['email'], $_POST['saran'])) {
+    $nama = htmlspecialchars($_POST['nama']);
+    $email = htmlspecialchars($_POST['email']);
+    $saran = htmlspecialchars($_POST['saran']);
+
+    $stmt = $conn->prepare("INSERT INTO saran (nama, email, saran) VALUES (?, ?, ?)");
+    if (!$stmt) {
+        $response = array(
+            "status" => false,
+            "message" => "Gagal mempersiapkan statement: " . $conn->error
+        );
+        echo json_encode($response);
+        exit();
+    }
+
+    $stmt->bind_param("sss", $nama, $email, $saran);
+
+    if ($stmt->execute()) {
+        $response = array(
+            "status" => true,
+            "message" => "Saran berhasil disimpan."
+        );
+    } else {
+        $response = array(
+            "status" => false,
+            "message" => "Gagal menyimpan saran. Silakan coba lagi."
+        );
+    }
+
+    $stmt->close();
+    $conn->close();
+} else {
+    $response = array(
+        "status" => false,
+        "message" => "Data tidak lengkap. Pastikan nama, email, dan saran diisi."
+    );
+}
+
+echo json_encode($response);
